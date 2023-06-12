@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('reviews_dates', function (Blueprint $table) {
             $table->id();
-            $table->integer('consultation_id');
+            $table->unsignedBigInteger('consultation_id')->unsigned();
             $table->date('date_time');
             $table->integer('status');
             $table->integer('importance_level');
             $table->timestamps();
+        });
+        Schema::table('reviews_dates', function($table)
+        {
+            $table->foreign('consultation_id')->references('id')->on('consultations')->onDelete('cascade');
+
         });
     }
 

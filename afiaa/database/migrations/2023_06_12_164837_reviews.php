@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->integer('consultation_id');
+            $table->unsignedBigInteger('consultation_id')->unsigned();
             $table->string('title');
             $table->string('porblem');
             $table->string('medications');
@@ -21,6 +21,11 @@ return new class extends Migration
             $table->string('doctor_note');
             $table->string('patient_note');
             $table->timestamps();
+        });
+        Schema::table('reviews', function($table)
+        {
+            $table->foreign('consultation_id')->references('id')->on('consultations')->onDelete('cascade');
+
         });
     }
 

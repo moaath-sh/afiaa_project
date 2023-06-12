@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reservation', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->integer('doctor_id');
-            $table->integer('patient_id');
+            $table->unsignedBigInteger('user_id')->unsigned();
             $table->date('date_time');
             $table->integer('status');
             $table->timestamps();
+        });
+        Schema::table('reservations', function($table)
+        {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 

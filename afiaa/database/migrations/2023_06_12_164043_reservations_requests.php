@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('reservation_requests', function (Blueprint $table) {
             $table->id();
-            $table->integer('reservation_id');
-            $table->integer('sender');
+            $table->unsignedBigInteger('reservation_id')->unsigned();
+            $table->unsignedBigInteger('sender')->unsigned();
             $table->date('date_time');
             $table->string('massage');
             $table->timestamps();
+        });
+        Schema::table('reservation_requests', function($table)
+        {
+            $table->foreign('sender')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade');
         });
     }
 

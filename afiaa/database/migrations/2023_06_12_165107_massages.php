@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('massages', function (Blueprint $table) {
             $table->id();
-            $table->integer('review_id');
-            $table->integer('sender');
+            $table->unsignedBigInteger('review_id')->unsigned();
+            $table->unsignedBigInteger('sender')->unsigned();
             $table->string('massage');
             $table->timestamps();
+        });
+        Schema::table('massages', function($table)
+        {
+            $table->foreign('sender')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('review_id')->references('id')->on('reviews')->onDelete('cascade');
         });
     }
 

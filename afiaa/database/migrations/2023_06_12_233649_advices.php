@@ -13,9 +13,16 @@ return new class extends Migration
     {
         Schema::create('advices', function (Blueprint $table) {
             $table->id();
-            $table->integer('doctor_id');
-            $table->integer('specialty_id');
+            $table->unsignedBigInteger('doctor_id')->unsigned();
+            $table->unsignedBigInteger('specialty_id')->unsigned();
+
             $table->timestamps();
+        });
+
+        Schema::table('advices', function($table)
+        {
+            $table->foreign('doctor_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('specialty_id')->references('id')->on('specialtys')->onDelete('cascade');
         });
     }
 
