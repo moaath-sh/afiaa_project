@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->unsignedBigInteger('post_id')->unsigned();
+            $table->text('TeSmCom');
             $table->string('content');
             $table->timestamps();
         });
